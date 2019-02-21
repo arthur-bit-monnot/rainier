@@ -102,6 +102,8 @@ private object Gradient {
     def toReal: Real = child.op match {
       case LogOp => gradient.toReal * (Real.one / child.original)
       case ExpOp => gradient.toReal * child
+      case SinOp => gradient.toReal * child.original.cos
+      case CosOp => gradient.toReal * (Real.zero - child.original.sin)
       case AbsOp =>
         Real.lt(child.original,
                 Real.zero,

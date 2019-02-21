@@ -14,6 +14,8 @@ private[compute] object RealOps {
             throw new ArithmeticException(
               "Cannot take the log of a negative number")
           case AbsOp => Infinity
+          case SinOp => Real.zero
+          case CosOp => Real.zero
           case NoOp  => original
         }
       case Constant(Real.BigZero) =>
@@ -21,6 +23,8 @@ private[compute] object RealOps {
           case ExpOp => Real.one
           case LogOp => NegInfinity
           case AbsOp => Real.zero
+          case SinOp => Real.zero
+          case CosOp => Real.one
           case NoOp  => original
         }
       case Constant(value) =>
@@ -33,6 +37,8 @@ private[compute] object RealOps {
             else
               Real(Math.log(value.toDouble))
           case AbsOp => Real(value.abs)
+          case SinOp => Real(Math.sin(value.toDouble))
+          case CosOp => Real(Math.cos(value.toDouble))
           case NoOp  => original
         }
       case nc: NonConstant =>
